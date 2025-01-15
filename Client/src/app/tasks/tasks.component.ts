@@ -86,10 +86,7 @@ interface NewTask {
         </button>
       </div>
       
-      <!-- Category Error Display -->
-      <div *ngIf="categoryError" class="error-message">
-        {{ categoryError }}
-      </div>
+     
       
       <button 
         *ngIf="!showAddCategory"
