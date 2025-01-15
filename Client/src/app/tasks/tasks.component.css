@@ -1,0 +1,265 @@
+/* Container Styles */
+.tasks-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Form Styles */
+  .task-form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  textarea.form-input {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  .add-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .add-button:hover:not(:disabled) {
+    background-color: #218838;
+  }
+  
+  /* Category Section Styles */
+  .category-section {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .category-select {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .add-category-section {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+  }
+  
+  .category-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .category-button.add {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .category-button.add:hover {
+    background-color: #0056b3;
+  }
+  
+  .category-button.cancel {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .category-button.cancel:hover {
+    background-color: #c82333;
+  }
+  
+  .category-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  /* Timeline Container Styles */
+  .timeline-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .timeline-section {
+    margin-bottom: 40px;
+  }
+  
+  .timeline-section h3 {
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .timeline {
+    position: relative;
+    margin: 20px 0;
+    padding: 20px 0;
+  }
+  
+  /* Timeline Hours Styles */
+  .timeline-hours {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-bottom: 10px;
+  }
+  
+  .hour-marker {
+    position: relative;
+    font-weight: bold;
+    color: #666;
+    font-size: 0.9em;
+  }
+  
+  .timeline-line {
+    position: relative;
+    height: 4px;
+    background-color: #ddd;
+    margin: 10px 20px;
+  }
+  
+  /* Tasks Timeline Styles */
+  .tasks-timeline {
+    position: relative;
+    min-height: 200px;
+    margin-top: 20px;
+  }
+  
+  .timeline-task {
+    position: absolute;
+    transition: all 0.3s ease;
+    width: 250px;
+    margin-top: 10px;
+  }
+  
+  /* Loading and Error States */
+  .loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+  }
+  
+  .error-message {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .error {
+    color: #dc3545;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background-color: #f8d7da;
+  }
+  
+  /* Headings */
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    font-weight: 500;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .tasks-container {
+      padding: 10px;
+    }
+  
+    .timeline-task {
+      width: 200px;
+    }
+  
+    .add-category-section {
+      flex-direction: column;
+      gap: 5px;
+    }
+  
+    .category-button {
+      width: 100%;
+    }
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .task-form, .timeline-container {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  /* Hover Effects */
+  .form-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+  }
+  
+  .category-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+  }
+  
+  /* Task Card Styles (if needed for the timeline) */
+  .task-card {
+    background: white;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-left: 4px solid #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .task-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }

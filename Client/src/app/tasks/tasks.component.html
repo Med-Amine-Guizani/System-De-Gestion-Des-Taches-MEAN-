@@ -1,0 +1,153 @@
+<app-navbar/>
+<div class="tasks-container">
+  <!-- Add Task Form -->
+  <div class="task-form">
+    <h2>Add New Task</h2>
+    
+    <!-- Task Form Error Display -->
+    <div *ngIf="formError" class="error-message">
+      {{ formError }}
+    </div>
+    
+    <div class="form-group">
+      <input
+        type="text"
+        [(ngModel)]="newTask.title"
+        placeholder="Task Title"
+        class="form-input"
+      >
+    </div>
+    
+    <!-- Category Selection -->
+    <div class="form-group category-section">
+      <select
+        [(ngModel)]="newTask.category_id"
+        class="form-input category-select"
+      >
+        <option value="">Select Category</option>
+        <option *ngFor="let category of categories" [value]="category._id">
+          {{ category.title }}
+        </option>
+      </select>
+      
+      <!-- Add New Category -->
+      <div class="add-category-section" *ngIf="showAddCategory">
+        <input
+          type="text"
+          [(ngModel)]="newCategory"
+          placeholder="New Category Name"
+          class="form-input"
+          (keyup.enter)="addCategory()"
+        >
+        <button 
+          (click)="addCategory()"
+          [disabled]="!newCategory.trim() || isCategoryLoading"
+          class="category-button"
+        >
+          {{ isCategoryLoading ? 'Saving...' : 'Save' }}
+        </button>
+        <button 
+          (click)="cancelAddCategory()"
+          class="category-button cancel"
+        >
+          Cancel
+        </button>
+      </div>
+      
+      <!-- Category Error Display -->
+      <div *ngIf="categoryError" class="error-message">
+        {{ categoryError }}
+      </div>
+      
+      <button 
+        *ngIf="!showAddCategory"
+        (click)="showAddCategory = true"
+        class="category-button add"
+      >
+        + Add Category
+      </button>
+    </div>
+
+    <div class="form-group">
+      <textarea
+        [(ngModel)]="newTask.desc"
+        placeholder="Task Description"
+        class="form-input"
+      ></textarea>
+    </div>
+    
+    <div class="form-group">
+      <input
+        type="time"
+        [(ngModel)]="newTask.time"
+        class="form-input"
+      >
+    </div>
+    
+    <button 
+      (click)="addTask()"
+      [disabled]="isLoading || !newTask.title.trim()"
+      class="add-button"
+    >
+      {{ isLoading ? 'Adding...' : 'Add Task' }}
+    </button>
+  </div>
+
+  <!-- Timeline Display -->
+  <div class="timeline-container">
+    <h2>Daily Timeline</h2>
+    
+    <!-- Morning Timeline -->
+    <div class="timeline-section">
+      <h3>Morning</h3>
+      <div class="timeline">
+        <div class="timeline-hours">
+          <div *ngFor="let hour of morningHours" class="hour-marker">
+            {{ formatHour(hour) }}
+          </div>
+        </div>
+        <div class="timeline-line"></div>
+        <div class="tasks-timeline">
+          <div *ngFor="let task of getMorningTasks()" 
+               class="timeline-task"
+               [style.left]="getTaskPosition(task, true)"
+          >
+            <app-task
+              [task]="task"
+              (taskUptimed)="onTaskUptimed($event)"
+              (taskDeleted)="onTaskDeleted($event)"
+            ></app-task>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Afternoon Timeline -->
+    <div class="timeline-section">
+      <h3>Afternoon</h3>
+      <div class="timeline">
+        <div class="timeline-hours">
+          <div *ngFor="let hour of afternoonHours" class="hour-marker">
+            {{ formatHour(hour) }}
+          </div>
+        </div>
+        <div class="timeline-line"></div>
+        <div class="tasks-timeline">
+          <div *ngFor="let task of getAfternoonTasks()" 
+               class="timeline-task"
+               [style.left]="getTaskPosition(task, false)"
+          >
+          <app-task
+          [task]="task"
+          (taskUptimed)="onTaskUptimed($event)"
+          (taskDeleted)="onTaskDeleted($event)"
+        ></app-task>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading" class="loading">Loading tasks...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Login</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      @if (error) {
+        <div class="error-message">
+          {{ error }}
+        </div>
+      }
+
+      <div class="form-group">
+        <input 
+          type="email" 
+          formControlName="email" 
+          placeholder="Email"
+          [class.invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+        >
+        @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+          <div class="error-hint">
+            @if (loginForm.get('email')?.errors?.['required']) {
+              <span>Email is required</span>
+            }
+            @if (loginForm.get('email')?.errors?.['email']) {
+              <span>Please enter a valid email</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <input 
+          type="password" 
+          formControlName="password" 
+          placeholder="Password"
+          [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        >
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <div class="error-hint">
+            Password is required
+          </div>
+        }
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid || loading">
+        {{ loading ? 'Logging in...' : 'Login' }}
+      </button>
+    </form>
+
+    <div class="auth-link">
+      Don't have an account? <a routerLink="/signup">Sign up</a>
+    </div>
+  </div>
+</div>

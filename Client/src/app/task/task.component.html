@@ -1,0 +1,70 @@
+<div class="task-card" [class.task-done]="task.status === 'done'">
+  <div *ngIf="!isEditing">
+    <div class="task-header">
+      <label class="checkbox-container">
+        <input
+          type="checkbox"
+          [checked]="task.status === 'done'"
+          (change)="toggleStatus()"
+          [disabled]="isLoading"
+        >
+        <span class="checkmark"></span>
+      </label>
+      <h3 [class.completed]="task.status === 'done'">{{task.title}}</h3>
+    </div>
+    <p [class.completed]="task.status === 'done'">{{task.desc}}</p>
+    <p [class.completed]="task.status === 'done'">Due: {{task.time}}</p>
+    <p [class.completed]="task.status === 'done'">
+      Category: {{ getCategoryTitle(task.category) }}
+    </p>
+    <div class="button-group">
+      <button (click)="toggleEdit()" [disabled]="isLoading">
+        <i class="fas fa-edit"></i> Edit
+      </button>
+      <button (click)="deleteTask()" [disabled]="isLoading">
+        <i class="fas fa-trash"></i> Delete
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isEditing">
+    <input 
+      [(ngModel)]="editedTask.title" 
+      placeholder="Task title"
+      class="edit-input"
+    >
+    <textarea 
+      [(ngModel)]="editedTask.desc" 
+      placeholder="Task description"
+      class="edit-input"
+    ></textarea>
+    <input 
+      type="time" 
+      [(ngModel)]="editedTask.time"
+      class="edit-input"
+    >
+    <select 
+      [(ngModel)]="editedTask.category"
+      class="edit-input"
+    >
+      <option value="">Select Category</option>
+      <option *ngFor="let category of categories" [value]="category._id">
+        {{ category.title }}
+      </option>
+    </select>
+    <div class="button-group">
+      <button 
+        (click)="uptimeTask()" 
+        [disabled]="isLoading || !editedTask.title.trim()"
+      >
+        {{ isLoading ? 'Saving...' : 'Save' }}
+      </button>
+      <button 
+        (click)="toggleEdit()" 
+        [disabled]="isLoading"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
